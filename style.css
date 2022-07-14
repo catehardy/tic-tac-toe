@@ -1,0 +1,79 @@
+:root {
+    --main-bg-color: whitesmoke;
+}
+
+body {
+    margin: 0;
+    background-image: linear-gradient(to right, rgb(19, 19, 187) , rgb(160, 36, 160));
+    color: var(--main-bg-color);
+}
+
+h1 {
+    font-family: "Papyrus", Times, serif;
+    font-size: 3rem;
+    text-align: center;
+}
+
+hr {
+    height: 1.2px;
+    width: 70%;
+    background-color: var(--main-bg-color);
+    border-color: var(--main-bg-color);
+    margin-bottom: 70px;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#board {
+    width: 450px;
+    height: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.square {
+    justify-content: center;
+    align-items: center;
+    width: 148px;
+    height: 149px;
+    border: 1px solid var(--main-bg-color);
+}
+
+/* remove border for board edges */
+.square:nth-child(1), .square:nth-child(2), .square:nth-child(3) {
+	border-top: none;
+}
+
+.square:nth-child(1), .square:nth-child(4), .square:nth-child(7) {
+	border-left: none;
+}
+
+.square:nth-child(3), .square:nth-child(6), .square:nth-child(9) {
+	border-right: none;
+}
+
+.square:nth-child(7), .square:nth-child(8), .square:nth-child(9) {
+	border-bottom: none;
+}
+
+#restart-button {
+    margin-top: 20px;
+    background-color: var(--main-bg-color);
+    color: rgb(140, 31, 140);
+    padding: 10px 20px;
+    border-radius: 0.3em;
+    border-style: none;
+    font-size: 16px;
+    font-weight: 700;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+#restart-button:hover{
+    transform: scale(1.1);
+}
