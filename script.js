@@ -2,9 +2,10 @@
 
 const BOARD = document.getElementById('board')
 const SQUARES = Array.from(document.querySelectorAll('.square'));
-const RESULT = document.getElementById('display-result')
+const DISPLAY_RESULT = document.getElementById('display-result')
 const PLAYER_UNICORN = "unicorn"
 const PLAYER_DRAGON = "dragon"
+let result
 
 let currentPlayer = PLAYER_DRAGON
 BOARD.classList.add(currentPlayer)
@@ -21,26 +22,23 @@ const WINNING_COMBOS = [
 ]
 
 function newGame() {
-    // clear board (empty each square - set to null?)
-    // hide result and button
     SQUARES.forEach((square) => {
         square.classList.remove(currentPlayer)
+        square.classList.remove('endGame')
         square.addEventListener("click", fillSquare)
     });
-
+    // TO DO: hide result and new game button
 }
 
 newGame()
 
-// FILL SQUARE
-// check whether clicked square is empty/null
-// fill square with current player
-// check if winner
-// if not, swap turns
+// Adds player classes to clicked game squares
 function fillSquare(e) {
     let square = e.target
-    if (!square.classList.contains(PLAYER_DRAGON || PLAYER_UNICORN)) {
+    // Checks whether clicked square already has a player class
+    if (!square.classList.contains(PLAYER_DRAGON) && !square.classList.contains(PLAYER_UNICORN)) {
         square.classList.add(currentPlayer)
+        // Adds currentPlayer class to BOARD (for hover effect before moves)
         if (BOARD.classList.contains('dragon')) {
             BOARD.classList.remove('dragon')
             BOARD.classList.add('unicorn')
@@ -49,45 +47,61 @@ function fillSquare(e) {
             BOARD.classList.add('dragon')
         }
         checkWinner()
+        checkTiedResult()
         switchPlayer()
     }
     console.log(e.target)
+}
+
+function checkWinner() {
+    WINNING_COMBOS.forEach(combo => {
+        if (SQUARES[combo[0]].classList.contains(currentPlayer) 
+         && SQUARES[combo[1]].classList.contains(currentPlayer) 
+         && SQUARES[combo[2]].classList.contains(currentPlayer)) {
+            result = currentPlayer
+            displayResult(result)
+        }
+    });
+}
+
+function checkTiedResult() {
+    let filledSquares = 0;
+    SQUARES.forEach(square => {
+        if (square.classList.contains(PLAYER_DRAGON)
+        || square.classList.contains(PLAYER_UNICORN)) {
+            filledSquares++;
+            if (filledSquares == 9 && result != currentPlayer) {
+                displayResult()
+            }
+        }
+
+    })
 }
 
 function switchPlayer() {
     currentPlayer == PLAYER_DRAGON ? currentPlayer = PLAYER_UNICORN : currentPlayer = PLAYER_DRAGON;
 }
 
-function checkWinner() {
-    WINNING_COMBOS.forEach(combo => {
-        if (SQUARES[combo[0]].classList.contains(currentPlayer) 
-        && SQUARES[combo[1]].classList.contains(currentPlayer) 
-        && SQUARES[combo[2]].classList.contains(currentPlayer)) {
-            let result = currentPlayer
-            displayResult(result)
-        } else if () {
-            // tied result
-        }
-    });
-}
-
 function displayResult(result) {
-    console.log("winner is ", result)
+    if (result == currentPlayer) {
+        console.log(`${result.toUpperCase()} is the winner!`)
+    } else {
+        console.log(`It's a tie!`)
+    }
+    
+// Removes event listeners for all squares so no empties can be filled
+// Adds endGame class to prevent next-move hover effect after win/tie
+     SQUARES.forEach((square) => {
+         square.removeEventListener("click", fillSquare)
+         square.classList.add('endGame')
+});
+// TO DO: show result (winner or tie) and button
+// TO DO: set event listener for button - launch newGame
 }
-
-// CHECK WINNER
-// check SQUARES array against WINNING_COMBOS
-// if winner, show result and button
-// set event listener for button - launch newGame
-// Remove event listeners for all squares so no empties can be filled:
-//      SQUARES.forEach((square) => {
-//          square.removeEventListener("click", fillSquare)
-// });
 
 
 // TO DO:
-// - checkWinner function
-// - displayResult function
+// - finish displayResult function
 // - show/hide display-result div (hide at newGame and display at displayResult)
 // - eventListener for NEW GAME button
 // - change background color of winner squares
