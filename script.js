@@ -1,10 +1,11 @@
 const BOARD = document.getElementById('board')
-// const SQUARES = Array.from(document.querySelectorAll('.square'));
-const SQUARES = document.querySelectorAll('.square');
+const SQUARES = Array.from(document.querySelectorAll('.square'));
 const RESULT = document.getElementById('display-result')
-const PLAYER_UNICORN = "🦄"
-const PLAYER_DRAGON = "🐲"
+const PLAYER_UNICORN = "unicorn"
+const PLAYER_DRAGON = "dragon"
+
 let currentPlayer = PLAYER_DRAGON
+BOARD.classList.add(currentPlayer)
 
 const WINNING_COMBOS = [
     [0, 1, 2],
@@ -17,12 +18,14 @@ const WINNING_COMBOS = [
     [2, 4, 6],
 ]
 
-console.log(SQUARES[1]);
-
 function newGame() {
     // clear board (empty each square - set to null?)
     // hide result and button
-    // set event listener for click on any square (FILL SQUARE)
+    SQUARES.forEach((square) => {
+        square.classList.remove(currentPlayer)
+        square.addEventListener("click", fillSquare)
+    });
+
 }
 
 newGame()
@@ -32,9 +35,40 @@ newGame()
 // fill square with current player
 // check if winner
 // if not, swap turns
+function fillSquare(e) {
+    let square = e.target
+    if (!square.classList.contains(PLAYER_DRAGON || PLAYER_UNICORN)) {
+        square.classList.add(currentPlayer)
+        if (BOARD.classList.contains('dragon')) {
+            BOARD.classList.remove('dragon')
+            BOARD.classList.add('unicorn')
+        } else if (BOARD.classList.contains('unicorn')) {
+            BOARD.classList.remove('unicorn')
+            BOARD.classList.add('dragon')
+        }
+        // checkWinner()
+        switchPlayer()
+    }
+    console.log(e.target)
+}
+
+function switchPlayer() {
+    currentPlayer == PLAYER_DRAGON ? currentPlayer = PLAYER_UNICORN : currentPlayer = PLAYER_DRAGON;
+}
 
 // CHECK WINNER
 // check SQUARES array against WINNING_COMBOS
 // if winner, show result and button
 // set event listener for button - launch newGame
-// prevent any other squares being clicked - remove event listener
+// Remove event listeners for all squares so no empties can be filled:
+//      SQUARES.forEach((square) => {
+//          square.removeEventListener("click", fillSquare)
+// });
+
+
+// TO DO:
+// - checkWinner function
+// - displayResult function
+// - show/hide display-result div (hide at newGame and display at displayResult)
+// - eventListener for NEW GAME button
+// - change background color of winner squares

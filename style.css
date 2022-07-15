@@ -37,6 +37,7 @@ hr {
 }
 
 .square {
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 148px;
@@ -76,4 +77,30 @@ hr {
 
 #restart-button:hover{
     transform: scale(1.1);
+}
+
+/* Dragon square - set */
+.square.dragon::before {
+    content: "🐲";
+    font-size: 500%;
+}
+
+/* Dragon square - hover */
+#board.dragon .square:not(.dragon):not(.unicorn):hover::before {
+    content: "🐲";
+    font-size: 500%;
+    opacity: 50%;
+}
+
+/* Unicorn square - set */
+.square.unicorn::before {
+    content: "🦄";
+    font-size: 500%;
+}
+
+/* Unicorn square - hover */
+#board.unicorn .square:not(.dragon):not(.unicorn):hover::before {
+    content: "🦄";
+    font-size: 500%;
+    opacity: 50%;
 }
