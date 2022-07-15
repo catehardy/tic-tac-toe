@@ -3,6 +3,7 @@
 const BOARD = document.getElementById('board')
 const SQUARES = Array.from(document.querySelectorAll('.square'))
 const RESULT_MESSAGE = document.getElementById('result-message')
+const RESTART_BUTTON = document.getElementById('restart-button')
 const PLAYER_UNICORN = "unicorn"
 const PLAYER_DRAGON = "dragon"
 let result
@@ -28,7 +29,7 @@ function newGame() {
         square.classList.remove('endGame')
         square.addEventListener("click", fillSquare)
     });
-    // TO DO: hide result and new game button
+    // TO DO: hide new game button
 }
 
 newGame()
@@ -39,19 +40,15 @@ function fillSquare(e) {
     // Checks whether clicked square already has a player class
     if (!square.classList.contains(PLAYER_DRAGON) && !square.classList.contains(PLAYER_UNICORN)) {
         square.classList.add(currentPlayer)
-        // Adds currentPlayer class to BOARD (for hover effect before moves)
-        if (BOARD.classList.contains('dragon')) {
-            BOARD.classList.remove('dragon')
-            BOARD.classList.add('unicorn')
-        } else {
-            BOARD.classList.remove('unicorn')
-            BOARD.classList.add('dragon')
-        }
+        // Swaps currentPlayer class of BOARD (for hover preview effect)
+        BOARD.classList.toggle('dragon')
+        BOARD.classList.toggle('unicorn')
         checkWinner()
-        checkTiedResult()
+        if (result != currentPlayer) {
+            checkTiedResult()
+        }
         switchPlayer()
     }
-    console.log(e.target)
 }
 
 function checkWinner() {
@@ -71,11 +68,10 @@ function checkTiedResult() {
         if (square.classList.contains(PLAYER_DRAGON)
         || square.classList.contains(PLAYER_UNICORN)) {
             filledSquares++;
-            if (filledSquares == 9 && result != currentPlayer) {
+            if (filledSquares == 9) {
                 displayResult()
             }
         }
-
     })
 }
 
@@ -85,12 +81,12 @@ function switchPlayer() {
 
 function displayResult(result) {
     if (result == currentPlayer) {
-        console.log()
-        RESULT_MESSAGE.innerText = `${result.toUpperCase()} is the winner!`
+        RESULT_MESSAGE.innerText = `${result.toUpperCase()} IS THE WINNER!`
     } else {
-        RESULT_MESSAGE.innerText = `It's a tie!`
+        RESULT_MESSAGE.innerText = `IT'S A TIE!`
     }
-    
+// TO DO: change background color of winner squares
+
 // Removes event listeners for all squares so no empties can be filled
 // Adds endGame class to prevent next-move hover effect after win/tie
      SQUARES.forEach((square) => {
@@ -98,12 +94,5 @@ function displayResult(result) {
          square.classList.add('endGame')
 });
 // TO DO: show result (winner or tie) and button
-    
 // TO DO: set event listener for button - launch newGame
 }
-
-
-// TO DO:
-// - show/hide display-result div (hide at newGame and display at displayResult)
-// - eventListener for NEW GAME button
-// - change background color of winner squares
