@@ -86,7 +86,7 @@ hr {
 }
 
 /* Dragon square - hover */
-#board.dragon .square:not(.dragon):not(.unicorn):hover::before {
+#board.dragon .square:not(.dragon):not(.unicorn):not(.endGame):hover::before {
     content: "🐲";
     font-size: 500%;
     opacity: 50%;
@@ -99,7 +99,7 @@ hr {
 }
 
 /* Unicorn square - hover */
-#board.unicorn .square:not(.dragon):not(.unicorn):hover::before {
+#board.unicorn .square:not(.dragon):not(.unicorn):not(.endGame):hover::before {
     content: "🦄";
     font-size: 500%;
     opacity: 50%;
