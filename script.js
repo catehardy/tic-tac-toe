@@ -1,8 +1,8 @@
 // @ts-check
 
 const BOARD = document.getElementById('board')
-const SQUARES = Array.from(document.querySelectorAll('.square'));
-const DISPLAY_RESULT = document.getElementById('display-result')
+const SQUARES = Array.from(document.querySelectorAll('.square'))
+const RESULT_MESSAGE = document.getElementById('result-message')
 const PLAYER_UNICORN = "unicorn"
 const PLAYER_DRAGON = "dragon"
 let result
@@ -22,6 +22,7 @@ const WINNING_COMBOS = [
 ]
 
 function newGame() {
+    RESULT_MESSAGE.innerText = ''
     SQUARES.forEach((square) => {
         square.classList.remove(currentPlayer)
         square.classList.remove('endGame')
@@ -84,9 +85,10 @@ function switchPlayer() {
 
 function displayResult(result) {
     if (result == currentPlayer) {
-        console.log(`${result.toUpperCase()} is the winner!`)
+        console.log()
+        RESULT_MESSAGE.innerText = `${result.toUpperCase()} is the winner!`
     } else {
-        console.log(`It's a tie!`)
+        RESULT_MESSAGE.innerText = `It's a tie!`
     }
     
 // Removes event listeners for all squares so no empties can be filled
@@ -96,12 +98,12 @@ function displayResult(result) {
          square.classList.add('endGame')
 });
 // TO DO: show result (winner or tie) and button
+    
 // TO DO: set event listener for button - launch newGame
 }
 
 
 // TO DO:
-// - finish displayResult function
 // - show/hide display-result div (hide at newGame and display at displayResult)
 // - eventListener for NEW GAME button
 // - change background color of winner squares
