@@ -6,6 +6,7 @@ const RESULT_MESSAGE = document.getElementById("result-message");
 const RESTART_BUTTON = document.getElementById("restart-button");
 const PLAYER_UNICORN = "unicorn";
 const PLAYER_DRAGON = "dragon";
+let winnerCombo;
 let result;
 
 let currentPlayer = PLAYER_DRAGON;
@@ -24,12 +25,11 @@ const WINNING_COMBOS = [
 
 function newGame() {
   RESULT_MESSAGE.innerText = "";
-  SQUARES.forEach((square) => {
-    square.classList.remove(currentPlayer);
-    square.classList.remove("endGame");
+  RESTART_BUTTON.classList.add("hidden");
+  SQUARES.forEach(square => {
+    square.classList.remove("dragon", "unicorn", "winner-squares");
     square.addEventListener("click", fillSquare);
   });
-  // TO DO: hide new game button
 }
 
 newGame();
@@ -43,7 +43,7 @@ function fillSquare(e) {
     !square.classList.contains(PLAYER_UNICORN)
   ) {
     square.classList.add(currentPlayer);
-    // Swaps currentPlayer class of BOARD (for hover preview effect)
+    // Swaps currentPlayer class of BOARD (used for hover preview effect)
     BOARD.classList.toggle("dragon");
     BOARD.classList.toggle("unicorn");
     checkWinner();
@@ -61,6 +61,7 @@ function checkWinner() {
       SQUARES[combo[1]].classList.contains(currentPlayer) &&
       SQUARES[combo[2]].classList.contains(currentPlayer)
     ) {
+      winnerCombo = combo;
       result = currentPlayer;
       displayResult(result);
     }
@@ -89,19 +90,19 @@ function switchPlayer() {
 }
 
 function displayResult(result) {
-  if (result == currentPlayer) {
-    RESULT_MESSAGE.innerText = `${result.toUpperCase()} IS THE WINNER!`;
-  } else {
-    RESULT_MESSAGE.innerText = `IT'S A TIE!`;
-  }
-  // TO DO: change background color of winner squares
-
+  result == currentPlayer
+   ? RESULT_MESSAGE.innerText = `${result.toUpperCase()} IS THE WINNER!`
+   : RESULT_MESSAGE.innerText = `IT'S A TIE!`;
+   // Adds background colour to winner squares
+   winnerCombo.forEach((number) => {
+    SQUARES[number].classList.add("winner-squares");
+   })
   // Removes event listeners for all squares so no empties can be filled
   // Adds endGame class to prevent next-move hover effect after win/tie
-  SQUARES.forEach((square) => {
+  SQUARES.forEach(square => {
     square.removeEventListener("click", fillSquare);
     square.classList.add("endGame");
   });
-  // TO DO: show result (winner or tie) and button
-  // TO DO: set event listener for button - launch newGame
+  RESTART_BUTTON.addEventListener("click", newGame);
+  RESTART_BUTTON.classList.remove("hidden");
 }

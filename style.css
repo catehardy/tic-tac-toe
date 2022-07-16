@@ -107,3 +107,11 @@ hr {
     font-size: 500%;
     opacity: 50%;
 }
+
+.hidden {
+    display: none;
+}
+
+.winner-squares {
+    background-color: goldenrod;
+}
