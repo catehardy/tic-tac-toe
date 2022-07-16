@@ -8,7 +8,6 @@ const PLAYER_UNICORN = "unicorn";
 const PLAYER_DRAGON = "dragon";
 let winnerCombo;
 let result;
-let fillSquareSound = new Audio('pop.wav')
 let winnerSound = new Audio('win.wav')
 
 let currentPlayer = PLAYER_DRAGON;
@@ -24,6 +23,13 @@ const WINNING_COMBOS = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+// This lets the sound effect overlap
+function playFillSound() {
+  let sound = document.getElementById("pop-sound");
+  sound.load();     
+  sound.play();
+}
 
 function newGame() {
   RESULT_MESSAGE.innerText = "";
@@ -48,7 +54,7 @@ function fillSquare(e) {
   // Checks whether clicked square already has a player class
   if (!square.classList.contains("filled")) {
     square.classList.add(currentPlayer, "filled");
-    fillSquareSound.play()
+    playFillSound()
     // Swaps currentPlayer class of BOARD (used for hover preview effect)
     BOARD.classList.toggle("dragon");
     BOARD.classList.toggle("unicorn");
