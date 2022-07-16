@@ -27,7 +27,7 @@ function newGame() {
   RESULT_MESSAGE.innerText = "";
   RESTART_BUTTON.classList.add("hidden");
   SQUARES.forEach(square => {
-    square.classList.remove("dragon", "unicorn", "winner-squares", "end-game");
+    square.classList.remove("dragon", "unicorn", "winner-squares", "end-game", "filled");
     square.addEventListener("click", fillSquare);
   });
 }
@@ -39,10 +39,9 @@ function fillSquare(e) {
   let square = e.target;
   // Checks whether clicked square already has a player class
   if (
-    !square.classList.contains(PLAYER_DRAGON) &&
-    !square.classList.contains(PLAYER_UNICORN)
+    !square.classList.contains("filled")
   ) {
-    square.classList.add(currentPlayer);
+    square.classList.add(currentPlayer, "filled");
     // Swaps currentPlayer class of BOARD (used for hover preview effect)
     BOARD.classList.toggle("dragon");
     BOARD.classList.toggle("unicorn");
@@ -63,6 +62,10 @@ function checkWinner() {
     ) {
       winnerCombo = combo;
       result = currentPlayer;
+      // Adds background colour to winner squares
+      winnerCombo.forEach((number) => {
+        SQUARES[number].classList.add("winner-squares");
+      })
       displayResult(result);
     }
   });
@@ -72,12 +75,10 @@ function checkTiedResult() {
   let filledSquares = 0;
   SQUARES.forEach((square) => {
     if (
-      square.classList.contains(PLAYER_DRAGON) ||
-      square.classList.contains(PLAYER_UNICORN)
+      square.classList.contains('filled')
     ) {
       filledSquares++;
       if (filledSquares == 9) {
-        winnerCombo = undefined;
         displayResult();
       }
     }
@@ -102,8 +103,4 @@ function displayResult(result) {
   });
   RESTART_BUTTON.addEventListener("click", newGame);
   RESTART_BUTTON.classList.remove("hidden");
-  // Adds background colour to winner squares
-  winnerCombo.forEach((number) => {
-  SQUARES[number].classList.add("winner-squares");
-  })
 }
