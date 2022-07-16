@@ -8,6 +8,8 @@ const PLAYER_UNICORN = "unicorn";
 const PLAYER_DRAGON = "dragon";
 let winnerCombo;
 let result;
+let fillSquareSound = new Audio('pop.wav')
+let winnerSound = new Audio('win.wav')
 
 let currentPlayer = PLAYER_DRAGON;
 BOARD.classList.add(currentPlayer);
@@ -26,8 +28,14 @@ const WINNING_COMBOS = [
 function newGame() {
   RESULT_MESSAGE.innerText = "";
   RESTART_BUTTON.classList.add("hidden");
-  SQUARES.forEach(square => {
-    square.classList.remove("dragon", "unicorn", "winner-squares", "end-game", "filled");
+  SQUARES.forEach((square) => {
+    square.classList.remove(
+      "dragon",
+      "unicorn",
+      "winner-squares",
+      "end-game",
+      "filled"
+    );
     square.addEventListener("click", fillSquare);
   });
 }
@@ -38,10 +46,9 @@ newGame();
 function fillSquare(e) {
   let square = e.target;
   // Checks whether clicked square already has a player class
-  if (
-    !square.classList.contains("filled")
-  ) {
+  if (!square.classList.contains("filled")) {
     square.classList.add(currentPlayer, "filled");
+    fillSquareSound.play()
     // Swaps currentPlayer class of BOARD (used for hover preview effect)
     BOARD.classList.toggle("dragon");
     BOARD.classList.toggle("unicorn");
@@ -62,10 +69,11 @@ function checkWinner() {
     ) {
       winnerCombo = combo;
       result = currentPlayer;
+      winnerSound.play()
       // Adds background colour to winner squares
       winnerCombo.forEach((number) => {
         SQUARES[number].classList.add("winner-squares");
-      })
+      });
       displayResult(result);
     }
   });
@@ -74,9 +82,7 @@ function checkWinner() {
 function checkTiedResult() {
   let filledSquares = 0;
   SQUARES.forEach((square) => {
-    if (
-      square.classList.contains('filled')
-    ) {
+    if (square.classList.contains("filled")) {
       filledSquares++;
       if (filledSquares == 9) {
         displayResult();
@@ -93,11 +99,11 @@ function switchPlayer() {
 
 function displayResult(result) {
   result == currentPlayer
-   ? RESULT_MESSAGE.innerText = `${result.toUpperCase()} IS THE WINNER!`
-   : RESULT_MESSAGE.innerText = `IT'S A TIE!`;
+    ? (RESULT_MESSAGE.innerText = `THE WINNER IS ${result.toUpperCase()}!`)
+    : (RESULT_MESSAGE.innerText = `IT'S A TIE!`);
   // Removes event listeners for all squares so no empties can be filled
   // Adds endGame class to prevent next-move hover effect after win/tie
-  SQUARES.forEach(square => {
+  SQUARES.forEach((square) => {
     square.removeEventListener("click", fillSquare);
     square.classList.add("end-game");
   });

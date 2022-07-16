@@ -4,6 +4,8 @@
 
 body {
     margin: 0;
+    /* height: 100vh;
+    width: 100vw; */
     background-image: linear-gradient(to right, rgb(19, 19, 187) , rgb(160, 36, 160));
     color: var(--main-bg-color);
 }
@@ -32,8 +34,8 @@ hr {
 }
 
 #board {
-    width: 450px;
-    height: 450px;
+    width: 420px;
+    height: 420px;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 30px;
@@ -43,8 +45,8 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 148px;
-    height: 149px;
+    width: 32%;
+    height: 33%;
     border: 1px solid var(--main-bg-color);
 }
 
@@ -85,26 +87,26 @@ hr {
 /* Dragon square - set */
 .square.dragon::before {
     content: "🐲";
-    font-size: 500%;
+    font-size: 5rem;
 }
 
 /* Dragon square - hover */
 #board.dragon .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
     content: "🐲";
-    font-size: 500%;
+    font-size: 5rem;
     opacity: 50%;
 }
 
 /* Unicorn square - set */
 .square.unicorn::before {
     content: "🦄";
-    font-size: 500%;
+    font-size: 5rem;
 }
 
 /* Unicorn square - hover */
 #board.unicorn .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
     content: "🦄";
-    font-size: 500%;
+    font-size: 5rem;
     opacity: 50%;
 }
 
@@ -114,4 +116,42 @@ hr {
 
 .winner-squares {
     background-color: goldenrod;
+}
+
+/* For small devices */
+@media only screen and (max-width: 600px) {
+    #board {
+        max-width: 220px;
+        max-height: 220px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    /* Dragon square - set */
+    .square.dragon::before {
+        font-size: 3rem !important;
+    }
+
+    /* Dragon square - hover */
+    #board.dragon .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
+        font-size: 3rem !important;
+        opacity: 50%;
+    }
+
+    /* Unicorn square - set */
+    .square.unicorn::before {
+        font-size: 3rem !important;
+    }
+
+    /* Unicorn square - hover */
+    #board.unicorn .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
+        font-size: 3rem !important;
+        opacity: 50%;
+    }
 }
