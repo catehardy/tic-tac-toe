@@ -1,157 +1,173 @@
 :root {
-    --main-bg-color: whitesmoke;
+  --main-bg-color: whitesmoke;
 }
 
 body {
-    margin: 0;
-    /* height: 100vh;
+  margin: 0;
+  /* height: 100vh;
     width: 100vw; */
-    background-image: linear-gradient(to right, rgb(19, 19, 187) , rgb(160, 36, 160));
-    color: var(--main-bg-color);
+  background-image: linear-gradient(
+    to right,
+    rgb(19, 19, 187),
+    rgb(160, 36, 160)
+  );
+  color: var(--main-bg-color);
 }
 
-h1, h2 {
-    font-family: "Papyrus", Times, serif;
-    text-align: center;
+h1,
+h2 {
+  font-family: "Papyrus", Times, serif;
+  text-align: center;
 }
 
 h1 {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 hr {
-    height: 1.2px;
-    width: 70%;
-    background-color: var(--main-bg-color);
-    border-color: var(--main-bg-color);
-    margin-bottom: 70px;
+  height: 1.2px;
+  width: 70%;
+  background-color: var(--main-bg-color);
+  border-color: var(--main-bg-color);
+  margin-bottom: 70px;
 }
 
 #container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #board {
-    width: 420px;
-    height: 420px;
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 30px;
+  width: 420px;
+  height: 420px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .square {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32%;
-    height: 33%;
-    border: 1px solid var(--main-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32%;
+  height: 33%;
+  border: 1px solid var(--main-bg-color);
 }
 
 /* remove border for board edges */
-.square:nth-child(1), .square:nth-child(2), .square:nth-child(3) {
-	border-top: none;
+.square:nth-child(1),
+.square:nth-child(2),
+.square:nth-child(3) {
+  border-top: none;
 }
 
-.square:nth-child(1), .square:nth-child(4), .square:nth-child(7) {
-	border-left: none;
+.square:nth-child(1),
+.square:nth-child(4),
+.square:nth-child(7) {
+  border-left: none;
 }
 
-.square:nth-child(3), .square:nth-child(6), .square:nth-child(9) {
-	border-right: none;
+.square:nth-child(3),
+.square:nth-child(6),
+.square:nth-child(9) {
+  border-right: none;
 }
 
-.square:nth-child(7), .square:nth-child(8), .square:nth-child(9) {
-	border-bottom: none;
+.square:nth-child(7),
+.square:nth-child(8),
+.square:nth-child(9) {
+  border-bottom: none;
 }
 
 #restart-button {
-    margin-top: 20px;
-    background-color: var(--main-bg-color);
-    color: rgb(140, 31, 140);
-    padding: 10px 20px;
-    border-radius: 0.3em;
-    border-style: none;
-    font-size: 16px;
-    font-weight: 700;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    transition: all 0.3s ease-in-out;
+  margin-top: 20px;
+  background-color: var(--main-bg-color);
+  color: rgb(140, 31, 140);
+  padding: 10px 20px;
+  border-radius: 0.3em;
+  border-style: none;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease-in-out;
 }
 
-#restart-button:hover{
-    transform: scale(1.1);
+#restart-button:hover {
+  transform: scale(1.1);
 }
 
 /* Dragon square - set */
 .square.dragon::before {
-    content: "🐲";
-    font-size: 5rem;
+  content: "🐲";
+  font-size: 5rem;
 }
 
 /* Dragon square - hover */
 #board.dragon .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
-    content: "🐲";
-    font-size: 5rem;
-    opacity: 50%;
+  content: "🐲";
+  font-size: 5rem;
+  opacity: 50%;
 }
 
 /* Unicorn square - set */
 .square.unicorn::before {
-    content: "🦄";
-    font-size: 5rem;
+  content: "🦄";
+  font-size: 5rem;
 }
 
 /* Unicorn square - hover */
 #board.unicorn .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
-    content: "🦄";
-    font-size: 5rem;
-    opacity: 50%;
+  content: "🦄";
+  font-size: 5rem;
+  opacity: 50%;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .winner-squares {
-    background-color: goldenrod;
+  background-color: goldenrod;
 }
 
 /* For small devices */
 @media only screen and (max-width: 600px) {
-    #board {
-        max-width: 220px;
-        max-height: 220px;
-    }
+  #board {
+    max-width: 220px;
+    max-height: 220px;
+  }
 
-    h1 {
-        font-size: 2rem;
-    }
+  h1 {
+    font-size: 2rem;
+  }
 
-    h2 {
-        font-size: 1.4rem;
-    }
+  h2 {
+    font-size: 1.4rem;
+  }
 
-    /* Dragon square - set */
-    .square.dragon::before {
-        font-size: 3rem !important;
-    }
+  /* Dragon square - set */
+  .square.dragon::before {
+    font-size: 3rem !important;
+  }
 
-    /* Dragon square - hover */
-    #board.dragon .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
-        font-size: 3rem !important;
-        opacity: 50%;
-    }
+  /* Dragon square - hover */
+  #board.dragon
+    .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
+    font-size: 3rem !important;
+    opacity: 50%;
+  }
 
-    /* Unicorn square - set */
-    .square.unicorn::before {
-        font-size: 3rem !important;
-    }
+  /* Unicorn square - set */
+  .square.unicorn::before {
+    font-size: 3rem !important;
+  }
 
-    /* Unicorn square - hover */
-    #board.unicorn .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
-        font-size: 3rem !important;
-        opacity: 50%;
-    }
+  /* Unicorn square - hover */
+  #board.unicorn
+    .square:not(.dragon):not(.unicorn):not(.end-game):hover::before {
+    font-size: 3rem !important;
+    opacity: 50%;
+  }
 }
