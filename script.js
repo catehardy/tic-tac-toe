@@ -27,7 +27,7 @@ function newGame() {
   RESULT_MESSAGE.innerText = "";
   RESTART_BUTTON.classList.add("hidden");
   SQUARES.forEach(square => {
-    square.classList.remove("dragon", "unicorn", "winner-squares");
+    square.classList.remove("dragon", "unicorn", "winner-squares", "end-game");
     square.addEventListener("click", fillSquare);
   });
 }
@@ -77,6 +77,7 @@ function checkTiedResult() {
     ) {
       filledSquares++;
       if (filledSquares == 9) {
+        winnerCombo = undefined;
         displayResult();
       }
     }
@@ -93,16 +94,16 @@ function displayResult(result) {
   result == currentPlayer
    ? RESULT_MESSAGE.innerText = `${result.toUpperCase()} IS THE WINNER!`
    : RESULT_MESSAGE.innerText = `IT'S A TIE!`;
-   // Adds background colour to winner squares
-   winnerCombo.forEach((number) => {
-    SQUARES[number].classList.add("winner-squares");
-   })
   // Removes event listeners for all squares so no empties can be filled
   // Adds endGame class to prevent next-move hover effect after win/tie
   SQUARES.forEach(square => {
     square.removeEventListener("click", fillSquare);
-    square.classList.add("endGame");
+    square.classList.add("end-game");
   });
   RESTART_BUTTON.addEventListener("click", newGame);
   RESTART_BUTTON.classList.remove("hidden");
+  // Adds background colour to winner squares
+  winnerCombo.forEach((number) => {
+  SQUARES[number].classList.add("winner-squares");
+  })
 }
