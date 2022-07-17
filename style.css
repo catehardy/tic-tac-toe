@@ -24,9 +24,10 @@ h1 {
 
 hr {
   height: 1.2px;
-  width: 70%;
+  width: 50%;
   background-color: var(--main-bg-color);
   border-color: var(--main-bg-color);
+  margin-top: -10px;
   margin-bottom: 70px;
 }
 
